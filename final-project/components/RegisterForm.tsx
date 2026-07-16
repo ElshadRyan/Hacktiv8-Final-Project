@@ -1,5 +1,6 @@
 import { User, Mail, Lock, Eye, Sparkles } from "lucide-react";
 
+//bambang
 export default function RegisterForm() {
   return (
     <section className="flex min-h-screen items-center justify-center bg-[var(--background)] p-10">
