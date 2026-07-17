@@ -1,6 +1,6 @@
 import * as z from "zod";
 import { hashSync } from "bcryptjs";
-import { database } from "@/db/config/mongoDb";
+import { database } from "@/db/config/mongodb";
 
 const VendorSchema = z.object({
   namaToko: z.string().min(1, { message: "Nama Toko is required" }),
@@ -41,7 +41,7 @@ export default class VendorModel {
     const agg = [
       {
         $match: {
-          _id: new ObjectId(vendorId),
+          _id: new ObjectI(vendorId),
         },
       },
       {
