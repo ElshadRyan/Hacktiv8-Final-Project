@@ -1,4 +1,3 @@
-import { ObjectId } from "mongodb";
 
 // GET INTERFACE
 
@@ -21,6 +20,8 @@ export interface GetProduct {
   discount: number;
   finalPrice: number;
   stock: number;
+  views: number;
+  wishlists: [GetWishlist]
 }
 
 export interface GetWishlist {
