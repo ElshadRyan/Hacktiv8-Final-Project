@@ -208,4 +208,3 @@ export default class ForumModel {
     message: "Like success",
   };
 }
-}
