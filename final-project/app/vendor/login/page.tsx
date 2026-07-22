@@ -1,17 +1,8 @@
 import Image from "next/image";
-import {
-  Check,
-  HelpCircle,
-  Shirt,
-  Sparkles,
-  Store,
-  Users,
-} from "lucide-react";
+import { Check, HelpCircle, Shirt, Sparkles, Store, Users } from "lucide-react";
 import LoginVendorForm from "@/components/LoginVendorForm";
 
 export default function VendorLoginPage() {
-
-
   const features = [
     "Inventory Management",
     "AI Virtual Try-On Integration",
@@ -53,11 +44,15 @@ export default function VendorLoginPage() {
 
         <div className="relative z-10 flex flex-col justify-between h-full p-16 text-white">
           {/* Logo */}
-          <div className="flex items-center gap-3">
-            <Sparkles className="w-8 h-8 fill-white" />
-            <h1 className="text-5xl font-bold font-[Poppins]">
-              CosFit
-            </h1>
+          <div className="flex items-center">
+            <Image
+              src="/images/text-logo.png"
+              alt="CosFit"
+              width={260}
+              height={80}
+              priority
+              className="h-16 w-auto object-contain drop-shadow-lg"
+            />
           </div>
 
           {/* Hero */}
@@ -71,18 +66,14 @@ export default function VendorLoginPage() {
             </h2>
 
             <p className="text-xl text-white/90 leading-9">
-              Manage your costumes, receive rental requests,
-              and reach thousands of cosplayers through
-              CosFit.
+              Manage your costumes, receive rental requests, and reach thousands
+              of cosplayers through CosFit.
             </p>
 
             {/* Features */}
             <div className="rounded-3xl border border-white/20 bg-white/10 backdrop-blur-xl p-8 w-[420px] space-y-6">
               {features.map((item) => (
-                <div
-                  key={item}
-                  className="flex items-center gap-4"
-                >
+                <div key={item} className="flex items-center gap-4">
                   <div className="w-10 h-10 rounded-full bg-(--primary) flex items-center justify-center">
                     <Check className="w-5 h-5" />
                   </div>
@@ -105,13 +96,9 @@ export default function VendorLoginPage() {
                 </div>
 
                 <div>
-                  <h3 className="text-4xl font-bold">
-                    {item.value}
-                  </h3>
+                  <h3 className="text-4xl font-bold">{item.value}</h3>
 
-                  <p className="text-white/80">
-                    {item.label}
-                  </p>
+                  <p className="text-white/80">{item.label}</p>
                 </div>
               </div>
             ))}
@@ -126,9 +113,7 @@ export default function VendorLoginPage() {
           <button className="flex items-center gap-2 text-sm">
             Need help?
             <HelpCircle className="w-4 h-4 text-(--primary)" />
-            <span className="text-(--primary)">
-              Contact Support
-            </span>
+            <span className="text-(--primary)">Contact Support</span>
           </button>
         </div>
 
@@ -145,12 +130,11 @@ export default function VendorLoginPage() {
               </h2>
 
               <p className="text-gray-500 mt-4 text-lg">
-                Sign in to manage your cosplay rental
-                store.
+                Sign in to manage your cosplay rental store.
               </p>
             </div>
 
-            <LoginVendorForm/>
+            <LoginVendorForm />
           </div>
         </div>
       </section>
