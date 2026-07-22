@@ -127,5 +127,18 @@ export async function proxy(request: Request) {
 export const config = {
   matcher: [
     "/((?!_next/static|_next/image|favicon.ico).*)",
+    "/profile",
+    "/vendor/:path*",
+    "/api/vendor/:path*",
+    "/api/user/profile",
+    "/vendor",
+    "/api/forum",
+    "/api/forum/:path*",
+    "/api/user/wishlist/:path*",
+    "/api/user/checkout/:path*",
+    "/api/chat/:path*",
+    "/api/user/try-on",
+    "/api/user/history",
+    "/api/user/token",
   ],
 };
