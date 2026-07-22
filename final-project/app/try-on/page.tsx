@@ -81,7 +81,8 @@ function TryOnContent() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isProductsLoading, setIsProductsLoading] = useState<boolean>(true);
   const [isHistoryLoading, setIsHistoryLoading] = useState<boolean>(true);
-  const [isSelectedProductLoading, setIsSelectedProductLoading] = useState<boolean>(false);
+  const [isSelectedProductLoading, setIsSelectedProductLoading] =
+    useState<boolean>(false);
 
   const [product, setProduct] = useState<ProductType[]>([]);
   const [history, setHistory] = useState<HistoryType[]>([]);
@@ -642,7 +643,10 @@ function TryOnContent() {
                 {isHistoryLoading ? (
                   // Skeleton Loading untuk History
                   [...Array(3)].map((_, index) => (
-                    <div key={index} className="flex items-center gap-3 rounded-2xl border border-gray-100 p-3 animate-pulse">
+                    <div
+                      key={index}
+                      className="flex items-center gap-3 rounded-2xl border border-gray-100 p-3 animate-pulse"
+                    >
                       <div className="h-16 w-16 bg-gray-200 rounded-xl shrink-0" />
                       <div className="flex-1 space-y-2">
                         <div className="h-4 bg-gray-200 rounded w-3/4" />
@@ -791,6 +795,66 @@ function TryOnContent() {
                     {isLoading ? "Generating..." : "Click Here to Generate"}
                   </button>
                 )}
+              </div>
+            </div>
+
+            <div
+              className="
+    mt-6
+    rounded-2xl
+    border
+    border-[#F3DED2]
+    bg-[#FFF8F4]
+    p-5
+  "
+            >
+              <div className="flex items-start gap-4">
+                <div
+                  className="
+        flex
+        h-10
+        w-10
+        shrink-0
+        items-center
+        justify-center
+        rounded-xl
+        bg-[#FFE8DD]
+      "
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-5 w-5 text-[#B14744]"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M13 16h-1v-4h-1m1-4h.01M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"
+                    />
+                  </svg>
+                </div>
+
+                <div>
+                  <h3 className="text-sm font-semibold text-gray-700">
+                    AI Preview Disclaimer
+                  </h3>
+
+                  <p className="mt-2 text-[10px] leading-7 text-[var(--muted)]">
+                    This virtual try-on is an AI-generated visualization
+                    designed to help you preview how the costume may look on
+                    your body. The actual fit, sizing, colors, and overall
+                    appearance may vary depending on the vendor, costume design,
+                    materials, and your body measurements.
+                  </p>
+
+                  <p className="mt-3 text-sm font-medium text-[#B14744]">
+                    Please review the vendor&apos;s size guide and product
+                    details before renting or purchasing.
+                  </p>
+                </div>
               </div>
             </div>
 
