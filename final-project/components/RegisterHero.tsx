@@ -6,6 +6,7 @@ import {
   ShieldCheck,
   Users,
   Stars,
+  User,
 } from "lucide-react";
 
 export default function RegisterHero() {
@@ -34,21 +35,23 @@ export default function RegisterHero() {
       {/* Logo */}
 
       <div className="relative z-10">
-        <h1 className="text-4xl font-bold text-primary">CosFit</h1>
-
-        <p className="mt-1 text-base text-secondary">AI Virtual Fitting</p>
+        <Image
+          src="/images/logo.png"
+          alt="CosFit"
+          width={240}
+          height={80}
+          priority
+          className="h-16 w-auto object-contain"
+        />
       </div>
 
       {/* Heading */}
 
-      <div className="relative z-10 mt-6 max-w-md">
+      <div className="relative z-15 mt-10 max-w-md">
         <h2 className="text-5xl font-bold leading-tight text-(--text)">
           Start Your
           <br />
           <span className="text-(--primary)">Cosplay Journey</span>
-          <br />
-          with CosFit
-          <Sparkles className={newLocal} size={30} />
         </h2>
 
         <p className="mt-5 text-lg leading-8 text-gray-600">
@@ -67,15 +70,15 @@ export default function RegisterHero() {
         />
 
         <Feature
-          icon={<Ruler size={20} />}
-          title="Size Match & Compare"
-          desc="Find the perfect fit instantly."
-        />
-
-        <Feature
           icon={<ShieldCheck size={20} />}
           title="Trusted Rental Vendors"
           desc="Rent with confidence."
+        />
+
+        <Feature
+          icon={<User size={20} />}
+          title="Events & Community"
+          desc="Find the perfect fit instantly."
         />
       </div>
 

@@ -64,11 +64,11 @@ export default function LoginPage() {
 
         <div className="pointer-events-none absolute inset-0">
           <Image
-            src="/images/register-girl.png"
+            src="/images/register.png"
             alt=""
             fill
             priority
-            className="object-cover object-top"
+            className="object-contain object-top"
           />
         </div>
 
@@ -83,10 +83,15 @@ export default function LoginPage() {
         <div className="relative z-10 flex w-full flex-col p-12">
           {/* Logo */}
 
-          <div>
-            <h1 className="text-5xl font-bold text-primary">CosFit</h1>
-
-            <p className="mt-2 text-lg text-secondary">AI Virtual Fitting</p>
+          <div className="flex items-center">
+            <Image
+              src="/images/logo.png"
+              alt="CosFit"
+              width={260}
+              height={80}
+              priority
+              className="h-20 w-auto object-contain"
+            />
           </div>
 
           {/* Heading */}
@@ -106,50 +111,54 @@ export default function LoginPage() {
 
           {/* Floating Card */}
 
-          <div className="relative z-10 mt-auto w-[420px] max-w-full rounded-[30px] bg-white/80 p-8 shadow-xl backdrop-blur">
-            <div className="mb-6 flex items-center gap-4">
-              <div className="rounded-2xl bg-background p-3">
-                <Users className="text-primary" size={24} />
+          <div className="relative z-10 mt-15 w-[420px] max-w-full rounded-[28px] bg-white/80 p-6 shadow-[0_20px_60px_rgba(0,0,0,0.08)] backdrop-blur-xl">
+            <div className="space-y-5">
+              {/* Item */}
+
+              <div className="flex items-center gap-4">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#FFF5ED]">
+                  <Users className="text-primary" size={22} />
+                </div>
+
+                <div className="leading-tight">
+                  <h5 className="font-semibold text-text">
+                    50,000+ Cosplayers
+                  </h5>
+
+                  <p className="mt-1 text-sm text-gray-500">
+                    Trusted worldwide.
+                  </p>
+                </div>
               </div>
 
-              <div>
-                <h3 className="font-semibold text-text">
-                  Join 50,000+ Cosplayers
-                </h3>
+              {/* Item */}
 
-                <p className="text-sm text-gray-500">
-                  Trusted by anime fans worldwide.
-                </p>
-              </div>
-            </div>
+              <div className="flex items-center gap-4">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#FFF5ED]">
+                  <WandSparkles className="text-primary" size={22} />
+                </div>
 
-            <div className="mb-6 flex items-center gap-4">
-              <div className="rounded-2xl bg-background p-3">
-                <WandSparkles className="text-primary" size={24} />
-              </div>
+                <div className="leading-tight">
+                  <h5 className="font-semibold text-text">AI Virtual Try-On</h5>
 
-              <div>
-                <h3 className="font-semibold text-text">AI Virtual Try-On</h3>
-
-                <p className="text-sm text-gray-500">
-                  Preview costumes instantly.
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-4">
-              <div className="rounded-2xl bg-background p-3">
-                <ShieldCheck className="text-primary" size={24} />
+                  <p className="mt-1 text-sm text-gray-500">
+                    Preview instantly.
+                  </p>
+                </div>
               </div>
 
-              <div>
-                <h3 className="font-semibold text-text">
-                  Verified Rental Vendors
-                </h3>
+              {/* Item */}
 
-                <p className="text-sm text-gray-500">
-                  Safe and trusted cosplay rentals.
-                </p>
+              <div className="flex items-center gap-4">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#FFF5ED]">
+                  <ShieldCheck className="text-primary" size={22} />
+                </div>
+
+                <div className="leading-tight">
+                  <h5 className="font-semibold text-text">Verified Vendors</h5>
+
+                  <p className="mt-1 text-sm text-gray-500">Safe rentals.</p>
+                </div>
               </div>
             </div>
           </div>
@@ -163,7 +172,7 @@ export default function LoginPage() {
           <div className="mb-10">
             <h1 className="flex items-center gap-3 text-5xl font-bold text-text">
               Welcome Back
-              <Sparkles className="text-accent" size={28} />
+              
             </h1>
 
             <p className="mt-3 text-lg text-gray-500">

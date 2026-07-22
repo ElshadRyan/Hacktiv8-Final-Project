@@ -29,7 +29,7 @@ export default async function ProductDetailPage({
     .catch(() => []);
 
   return (
-    <div className="mx-auto max-w-7xl px-6 py-10 lg:px-8">
+    <div className="mx-auto max-w-7xl px-6 py-10 lg:px-8 mb-8">
       {/* View tracker tetap memakai ObjectId */}
       <ProductViewTracker productId={product._id} />
 

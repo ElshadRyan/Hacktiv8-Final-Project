@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X, Sparkles, ShoppingBag, User } from "lucide-react";
 import { useState } from "react";
+import Image from "next/image";
 
 export interface NavLink {
   id: string;
@@ -63,14 +64,15 @@ export default function Navbar({
     <header className="sticky top-0 z-50 border-b border-border bg-surface/90 backdrop-blur">
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 lg:px-8">
         {/* Brand */}
-        <Link href="/" className="flex flex-col leading-none">
-          <span className="flex items-center gap-1.5 font-serif text-2xl font-bold text-primary">
-            {brandName}
-            <Sparkles className="h-4 w-4" />
-          </span>
-          <span className="text-xs tracking-wide text-muted">
-            {brandTagline}
-          </span>
+        <Link href="/" className="shrink-0">
+          <Image
+            src="/images/logo.png"
+            alt="CosFit"
+            width={220}
+            height={70}
+            priority
+            className="h-16 w-auto object-contain"
+          />
         </Link>
 
         {/* Desktop links */}
