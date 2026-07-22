@@ -3,43 +3,35 @@ import errorHandler from "./app/helpers/errorHandler";
 import { verify } from "jsonwebtoken";
 import { NextResponse } from "next/server";
 import ProductModel from "./db/models/productModel";
+import { id } from "zod/v4/locales";
 
 export async function proxy(request: Request) {
   try {
     console.log("Proxy function called");
-
     const pathname = new URL(request.url).pathname;
-
-    const requestHeaders = new Headers(request.headers);
-    requestHeaders.set("x-pathname", pathname);
+    console.log("pathname:", pathname);
+    if (
+      pathname === "/api/vendor/login" ||
+      pathname === "/api/vendor/register" ||
+      pathname === "/vendor/register" ||
+      pathname === "/vendor/login"
+    ) {
+      return NextResponse.next();
+    }
 
     const cookieStore = await cookies();
-    const authToken = cookieStore.get("Authorization");    
+    const authToken = cookieStore.get("Authorization");
 
-    let decoded:
-      | {
-          id: string;
-          email: string;
-          role: string;
-        }
-      | undefined;
+    if (!authToken) throw { message: "please login first", status: 401 };
+    const [type, token] = authToken.value.split(" ");
+    if (type !== "Bearer" || !token)
+      throw { message: "please login first", status: 401 };
 
-    // Decode token only if it exists
-    if (authToken) {
-      const [type, token] = authToken.value.split(" ");
-
-      if (type === "Bearer" && token) {
-        decoded = verify(token, process.env.JWT_SECRET as string) as {
-          id: string;
-          email: string;
-          role: string;
-        };
-
-        requestHeaders.set("x-user-email", decoded.email);
-        requestHeaders.set("x-user-id", decoded.id);
-        requestHeaders.set("x-user-role", decoded.role);
-      }
-    }
+    const decoded = verify(token, process.env.JWT_SECRET as string) as {
+      id: string;
+      email: string;
+      role: string;
+    };
 
 
     
@@ -118,11 +110,53 @@ export async function proxy(request: Request) {
       }
     }
 
-    return NextResponse.next({
+        if (pathname.startsWith("/api/vendor/product/")) {
+            const segments = pathname.split("/");
+            const id = segments[4];
+
+            const product = await ProductModel.getById(id);
+
+            if (!product) {
+                throw {
+                    message: "Product not found",
+                    status: 404,
+                };
+            }
+
+            if (product.vendorId.toString() !== decoded.id) {
+                throw {
+                    message: "Forbidden",
+                    status: 403,
+                };
+            }
+        }
+
+        if (
+            (pathname.startsWith("/api/vendor") || pathname.startsWith("/vendor")) &&
+            decoded.role !== "Vendor"
+        ) {
+            throw {
+                message: "Forbidden",
+                status: 403,
+            };
+        }
+        
+        
+        // Clone the request headers and set a new header `x-hello-from-proxy1`
+        const requestHeaders = new Headers(request.headers);
+        requestHeaders.set("x-user-email", decoded.email);
+        requestHeaders.set("x-user-id", decoded.id);
+        requestHeaders.set("x-user-role", decoded.role);
+
+    // You can also set request headers in NextResponse.next
+    const response = NextResponse.next({
       request: {
+        // New request headers
         headers: requestHeaders,
       },
     });
+
+    return response;
   } catch (err) {
     return errorHandler(err);
   }
@@ -130,6 +164,18 @@ export async function proxy(request: Request) {
 
 export const config = {
   matcher: [
-    "/((?!_next/static|_next/image|favicon.ico).*)",
+    "/profile",
+    "/vendor/:path*",
+    "/api/vendor/:path*",
+    "/api/user/profile",
+    "/vendor",
+    "/api/forum",
+    "/api/forum/:path*",
+    "/api/user/wishlist/:path*",
+    "/api/user/checkout/:path*",
+    "/api/chat/:path*",
+    "/api/user/try-on",
+    "/api/user/history",
+    "/api/user/token",
   ],
 };

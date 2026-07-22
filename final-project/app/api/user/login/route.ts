@@ -33,12 +33,6 @@ export async function POST(req: Request)
             name: "Authorization",
             value: `Bearer ${token}`,
         });
-        cookieStore.set({
-            name: "x-user-role",
-            value: "User",
-            httpOnly: false,
-            path: "/",
-        });
 
         return Response.json(
             { message: "Login successful", token },

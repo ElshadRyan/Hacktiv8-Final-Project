@@ -3,7 +3,10 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X, Sparkles, ShoppingBag, User } from "lucide-react";
-import { useState } from "react";
+// import { cookies } from "next/headers";
+import { useEffect, useState } from "react";
+import { handleLoginCookies } from "@/action";
+// import { cookies } from "next/headers";
 
 export interface NavLink {
   id: string;
@@ -44,7 +47,6 @@ export default function Navbar({
   brandName = "CosFit",
   brandTagline = "AI Virtual Fitting",
   links = defaultLinks,
-  isLoggedIn,
   loginLabel = "Login",
   registerLabel = "Register",
   loginHref = "/login",
@@ -53,8 +55,19 @@ export default function Navbar({
   profileHref = "/profile",
 }: NavbarProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isLoggedIn, setIsLogin] = useState(false);
   const pathname = usePathname();
+  useEffect(() => {
+    const checkLogin = async () => {
+      const res = await handleLoginCookies();
+      setIsLogin(res);
+    };
 
+    checkLogin();
+  }, [isLoggedIn]);
+
+  // const cookieStore = await cookies();
+  // const isLoggedIn = cookieStore.get("Authorization") ? true : false;
   const visibleLinks = isLoggedIn
     ? links.filter((link) => link.id !== "vendor")
     : links.filter((link) => link.id !== "wishlist" && link.id !== "try-on" && link.id !== "forum");

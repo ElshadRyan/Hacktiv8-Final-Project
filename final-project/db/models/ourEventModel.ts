@@ -13,10 +13,8 @@ export default class OurEventModel {
   }
 
   static async createEvent(eventData: PostOurEvent) {
-    const now = new Date().toISOString();
-    const payload = { ...eventData, createdAt: now, updatedAt: now };
-    const result = await this.collection().insertOne(payload);
-    return result.insertedId;
+    const result = await this.collection().insertOne(eventData);
+    return "Event created with ID: " + result.insertedId;
   }
 
   static async getEventById(id: string) {
@@ -44,19 +42,5 @@ export default class OurEventModel {
     ];
     const data = await this.collection().aggregate(agg).toArray();
     return data;
-  }
-
-  static async updateEvent(id: string, updateData: Partial<PostOurEvent>) {
-    const now = new Date().toISOString();
-    const result = await this.collection().updateOne(
-      { _id: new ObjectId(id) },
-      { $set: { ...updateData, updatedAt: now } },
-    );
-    return result.modifiedCount > 0;
-  }
-
-  static async deleteEvent(id: string) {
-    const result = await this.collection().deleteOne({ _id: new ObjectId(id) });
-    return result.deletedCount > 0;
   }
 }
