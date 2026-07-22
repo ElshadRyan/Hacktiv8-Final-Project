@@ -69,8 +69,8 @@ export default function Navbar({
   // const cookieStore = await cookies();
   // const isLoggedIn = cookieStore.get("Authorization") ? true : false;
   const visibleLinks = isLoggedIn
-    ? links
-    : links.filter((link) => link.id !== "wishlist");
+    ? links.filter((link) => link.id !== "vendor")
+    : links.filter((link) => link.id !== "wishlist" && link.id !== "try-on" && link.id !== "forum");
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-surface/90 backdrop-blur">
