@@ -89,7 +89,7 @@ async function handleRemove() {
           src={image}
           alt={character}
           fill
-          className="object-cover transition duration-500 group-hover:scale-105 object-top"
+          className="object-cover transition duration-500 group-hover:scale-105"
         />
 
         <div

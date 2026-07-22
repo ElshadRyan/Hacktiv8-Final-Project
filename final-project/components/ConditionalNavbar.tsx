@@ -2,38 +2,13 @@
 
 import { usePathname } from "next/navigation";
 import Navbar from "./Navbar";
-import Footer from "./Footer";
-import VendorSidebar from "./vendor/VendorSidebar";
 
-const HIDDEN_ON = ["/login", "/register", "/vendor/login", "/vendor/register"];
+const HIDDEN_ON = ["/login", "/register"];
 
-export default function ConditionalNavbar({
-  children,
-  role,
-}: {
-  children: React.ReactNode;
-  role: string | null;
-}) {
+export default function ConditionalNavbar() {
   const pathname = usePathname();
 
-  if (HIDDEN_ON.includes(pathname)) {
-    return <>{children}</>;
-  }
+  if (HIDDEN_ON.includes(pathname) || pathname.startsWith("/vendor")) return null;
 
-  if (role === "Vendor") {
-    return (
-      <div className="flex min-h-screen">
-        <VendorSidebar />
-        <main className="flex-1 overflow-x-hidden">{children}</main>
-      </div>
-    );
-  }
-
-  return (
-    <>
-      <Navbar isLoggedIn={!!role} />
-      <main>{children}</main>
-      <Footer />
-    </>
-  );
+  return <Navbar />;
 }
