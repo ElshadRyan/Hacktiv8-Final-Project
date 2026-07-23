@@ -11,10 +11,15 @@ interface chatType {
   userId: string;
   roomId: string;
   createdAt: string;
+  vendor: {
+    namaToko: string;
+    role: string;
+    userImg: string
+  }[];
   user: {
-    _id: string;
     username: string;
-    email: string;
+    role: string;
+    userImg: string
   }[];
 }
 
@@ -24,6 +29,37 @@ interface CommentCardProps {
   currentUser: string;
   image: string
 }
+
+// Fungsi pembantu untuk memformat waktu relatif
+const formatTimeAgo = (dateString: string | undefined) => {
+  if (!dateString) return "Just now";
+
+  const date = new Date(dateString);
+  const now = new Date();
+  const diffInMs = now.getTime() - date.getTime();
+  
+  const diffInSeconds = Math.floor(diffInMs / 1000);
+  const diffInMinutes = Math.floor(diffInSeconds / 60);
+  const diffInHours = Math.floor(diffInMinutes / 60);
+
+  if (diffInMinutes < 1) {
+    return "Just now";
+  }
+  
+  if (diffInMinutes < 60) {
+    return `${diffInMinutes} minute${diffInMinutes > 1 ? 's' : ''} ago`;
+  }
+  
+  if (diffInHours < 24) {
+    return `${diffInHours} hour${diffInHours > 1 ? 's' : ''} ago`;
+  }
+
+  return date.toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric"
+  });
+};
 
 export default function CommentCard({ roomId, initialMessages, currentUser, image }: CommentCardProps) {
   const [messages, setMessages] = useState<chatType[]>(initialMessages);
@@ -53,22 +89,21 @@ export default function CommentCard({ roomId, initialMessages, currentUser, imag
     };
   }, [roomId]);
 
-  console.log(messages);
   return (
     <div className="flex w-full flex-col gap-6 p-4">
       {messages?.map((chat) => {
-        const username = chat?.user?.[0]?.username || "Unknown";
+        console.log(chat);
+        const username = chat?.user?.[0]?.username || chat?.vendor?.[0]?.namaToko || "Unknown";
         const isMe = username === currentUser;
-        const initialLetter = username.charAt(0).toUpperCase();
-        const role = isMe ? "You" : "Someone";
+        const role = isMe ? "You" : chat?.user[0]?.role || chat?.vendor[0]?.role ;
 
         return (
           <div key={chat._id} className="card rounded-xl border border-border bg-white p-6 shadow-sm">
             <div className="flex gap-4">
               
               <div className="relative h-12 w-12 shrink-0">
-                        <Image src={image} alt="My Avatar" fill className="rounded-full object-cover" />
-                      </div>
+                <Image src={chat?.user[0]?.userImg || chat?.vendor[0]?.userImg} alt="My Avatar" fill className="rounded-full object-cover" />
+              </div>
 
               <div className="flex-1">
                 <div className="flex items-start justify-between">
@@ -88,10 +123,9 @@ export default function CommentCard({ roomId, initialMessages, currentUser, imag
                         {role}
                       </span>
 
+                      {/* Menggunakan helper formatTimeAgo di sini */}
                       <span className="text-xs text-muted text-muted-foreground">
-                        {chat.createdAt
-                          ? new Date(chat.createdAt).toLocaleDateString()
-                          : "Just now"}
+                        {formatTimeAgo(chat.createdAt)}
                       </span>
                     </div>
                   </div>
@@ -101,9 +135,17 @@ export default function CommentCard({ roomId, initialMessages, currentUser, imag
                   </button>
                 </div>
 
-                <p className="mt-4 whitespace-pre-line leading-8 text-(--text)">
-                  {chat.content}
-                </p>
+                <div
+                  className="
+                    prose prose-sm max-w-none
+                    [&>p:last-child]:mb-0
+                    [&>ul]:list-disc
+                    [&>ol]:list-decimal
+                    [&>ul]:ml-5
+                    [&>ol]:ml-5
+                  "
+                  dangerouslySetInnerHTML={{ __html: chat.content }}
+                />
 
                 <div className="mt-5 flex gap-6 text-sm text-muted-foreground">
                   <button className="flex items-center gap-2 transition-colors hover:text-primary">

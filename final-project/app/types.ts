@@ -45,8 +45,8 @@ export interface GetCheckout {
   productId: string;
   userId: string;
   status: string;
-  product: GetProduct; 
-  vendor: GetVendor; 
+  product: GetProduct;
+  vendor: GetVendor;
 }
 
 export interface GetInputImage {
@@ -68,6 +68,17 @@ export interface GetRoom {
   desc: string;
   img: string;
   tag: [string];
+}
+
+export interface GetOrder {
+  _id: string;
+  orderId: string;
+  items: { productId: string; price: number; quantity: number; name: string }[];
+  total: number;
+  paymentStatus: string;
+  userId: string;
+  product: GetProduct[];
+  vendor: GetVendor;
 }
 
 export interface GetOurEvent {
@@ -97,6 +108,8 @@ export interface GetUserDesign {
   imgUrl: string;
   userId: string;
   vote: number;
+  entryTitle?: string;
+  username?: string;
 }
 
 export interface GetVendor {

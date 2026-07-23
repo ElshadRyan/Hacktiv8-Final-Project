@@ -14,6 +14,7 @@ interface detailType {
   createdAt: Date;
   creator: creatorType
 }
+
 interface creatorType {
   "_id": string;
   "username": string
@@ -47,7 +48,7 @@ export default function DiscussionDetail({ detail }: { detail: detailType }) {
                 {detail.creator.username}
               </h3>
               <span className="badge-warning text-xs px-2.5 py-0.5 rounded-full font-medium bg-amber-100 text-amber-800">
-                User
+                Creator
               </span>
               <BadgeCheck size={18} className="fill-sky-500 text-white" />
             </div>
@@ -72,9 +73,11 @@ export default function DiscussionDetail({ detail }: { detail: detailType }) {
           {detail.nameForum}
         </h1>
 
-        <p className="mt-4 sm:mt-6 max-w-4xl text-base sm:text-lg leading-relaxed text-[var(--muted)]">
-          {detail.desc}
-        </p>
+        {/* PERBAIKAN DI SINI */}
+        <div 
+          className="prose prose-sm sm:prose-base max-w-4xl mt-4 sm:mt-6 text-[var(--muted)] prose-p:leading-relaxed"
+          dangerouslySetInnerHTML={{ __html: detail.desc }}
+        />
       </div>
 
       {/* 3. TAGS SECTION */}
